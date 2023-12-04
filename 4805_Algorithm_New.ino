@@ -97,7 +97,8 @@ void loop() {
       motorRight();   
       delay(300);   
     }
-    //This means only one ultrasonic sees something, so turn away from it
+    //Only one ultrasonic detects
+    //Turn left or right depending on Turn value
     else if (Turn == 1)
     {
       Serial.println("UltraSonic turn right");
@@ -133,7 +134,7 @@ void IR_read() {
 }
 
 void handle_ultrasonic() {
-  //Read Left and Right UltraSonics
+  //Read both UltraSonic Sensors
   int Left = UltraLeft.cm();
   int Right = UltraRight.cm();
   
@@ -146,7 +147,7 @@ void handle_ultrasonic() {
   {
     DistRight = Right; 
   }
-  //Setting turn direction
+  //Setting Turn to left or right
   if((DistRight < 25) || (DistLeft < 25) && (DistLeft != DistRight))
   {
     if((DistLeft > DistRight))            
