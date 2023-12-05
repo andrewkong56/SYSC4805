@@ -20,11 +20,14 @@ int IRState;
 int IRFlag = 0;
 int DistLeft = 450;
 int DistRight = 450;
+
 //distance to avoid obstacle with ultrasonic
 const int DistMin = 30;
 const int DistStop = 20;
 int Turn = 0;
-int x;
+
+
+int rand;
 
 void setup() {
   Serial.begin(9600);
@@ -146,6 +149,7 @@ void IR_read() {
   }
 }
 
+// Ultrasonic Detection
 void handle_ultrasonic() {
   //Read both UltraSonic Sensors
   int Left = UltraLeft.cm();
@@ -188,14 +192,14 @@ void motorLeft() {
   digitalWrite(22, LOW);
   digitalWrite(24, HIGH);
 }
-//FWD
+// Move Forward
 void motorFwd() {
   digitalWrite(2, 150);
   digitalWrite(22, HIGH);
   digitalWrite(24, HIGH);
 }
 
-//Back 
+// Move Back 
 void motorBack() {
   digitalWrite(2, 150);
   digitalWrite(22, LOW);
@@ -205,6 +209,7 @@ void stop() {
   analogWrite(2, 0);
 }
 
+// NOT USED - Previous snake algorithm, does not work.
 void snakeRight() {
   motorBack();
   delay(1000);
@@ -216,6 +221,7 @@ void snakeRight() {
   delay(2000);
 }
 
+// NOT USED - Previous snake algorithm, does not work.
 void snakeLeft() {
   motorBack();
   delay(1000);
@@ -227,6 +233,7 @@ void snakeLeft() {
   delay(2000);
 }
 
+// IR detection.
 void handle_IRDetect() {
   stop();
   delay(200);
@@ -236,9 +243,10 @@ void handle_IRDetect() {
   delay(random(1000, 2000));
 }
 
+// Random direction when the IR detects an object.
 void randomdirection(){
-  x = random(1, 2);
-  if (x = 1){
+  rand = random(1, 2);
+  if (rand = 1){
     motorRight();
   }
   else{
